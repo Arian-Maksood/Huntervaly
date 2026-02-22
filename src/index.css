@@ -1,0 +1,182 @@
+﻿@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+
+  --color-primary: #3b82f6;
+  --color-secondary: #a855f7;
+  --color-accent: #f472b6;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulseSlow 4s ease-in-out infinite;
+  --animate-mesh: mesh 20s linear infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes pulseSlow {
+
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes mesh {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-[#030712] text-slate-200 antialiased selection:bg-blue-500/30 selection:text-blue-200;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  /* Animated Mesh Background */
+  .mesh-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(244, 114, 182, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    background-size: 200% 200%;
+    animation: mesh 15s ease infinite;
+  }
+}
+
+@layer components {
+
+  /* Enhanced Glassmorphism */
+  .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-card:hover {
+    @apply border-white/20;
+    box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.1);
+  }
+
+  /* Interactive Glass Navbar */
+  .glass-nav {
+    @apply bg-slate-900/60 backdrop-blur-md border-b border-white/5 sticky top-0 z-50;
+  }
+
+  /* Premium Buttons */
+  .btn-primary {
+    @apply relative overflow-hidden bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+  }
+
+  .btn-primary::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:animate-[shimmer_1.5s_infinite];
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .btn-secondary {
+    @apply bg-slate-800/50 hover:bg-slate-700/50 backdrop-blur-sm text-white font-semibold px-8 py-3.5 rounded-xl border border-white/10 transition-all duration-300 hover:border-white/20 flex items-center justify-center gap-2;
+  }
+
+  /* Advanced Input Fields */
+  .input-field {
+    @apply w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-slate-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 hover:border-white/20;
+  }
+
+  /* Animated Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent font-extrabold;
+  }
+
+  .badge {
+    @apply px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border;
+  }
+
+  /* Fix Chrome/Edge Autofill Background */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f1f5f9;
+    -webkit-box-shadow: 0 0 0px 1000px #0f172a inset;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: white;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-slate-950;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
+  }
+
+  /* Text Shimmer Effect */
+  .text-shimmer {
+    background: linear-gradient(90deg, #94a3b8 0%, #ffffff 50%, #94a3b8 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: textShimmer 3s linear infinite;
+  }
+
+  @keyframes textShimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
+}
